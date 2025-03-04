@@ -1,29 +1,17 @@
 import tkinter as tk
 from tkinter import filedialog
 
-def ouvrir_fichier():
-    nom_fichier = filedialog.askopenfilename(filetypes=[("Fichiers MonTexte", "*.montexte")])
+def ouvrir_fichier(text_widget):
+    """Ouvre un fichier .txt et affiche son contenu dans la zone de texte."""
+    nom_fichier = filedialog.askopenfilename(filetypes=[("Fichiers texte", "*.txt")])
     if nom_fichier:
-        with open(nom_fichier, "r") as f:
-            texte.delete("1.0", tk.END)
-            texte.insert(tk.END, f.read())
+        with open(nom_fichier, "r", encoding="utf-8") as f:
+            text_widget.delete("1.0", tk.END)
+            text_widget.insert(tk.END, f.read())
 
-def enregistrer_fichier():
-    nom_fichier = filedialog.asksaveasfilename(defaultextension=".montexte", filetypes=[("Fichiers MonTexte", "*.montexte")])
+def enregistrer_fichier(text_widget):
+    """Enregistre le contenu de la zone de texte dans un fichier .txt."""
+    nom_fichier = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Fichiers texte", "*.txt")])
     if nom_fichier:
-        with open(nom_fichier, "w") as f:
-            f.write(texte.get("1.0", tk.END))
-
-fenetre = tk.Tk()
-
-menu_barre = tk.Menu(fenetre)
-menu_fichier = tk.Menu(menu_barre, tearoff=0)
-menu_fichier.add_command(label="Ouvrir", command=ouvrir_fichier)
-menu_fichier.add_command(label="Enregistrer", command=enregistrer_fichier)
-menu_barre.add_cascade(label="Fichier", menu=menu_fichier)
-fenetre.config(menu=menu_barre)
-
-texte = tk.Text(fenetre)
-texte.pack()
-
-fenetre.mainloop()
+        with open(nom_fichier, "w", encoding="utf-8") as f:
+            f.write(text_widget.get("1.0", tk.END))
