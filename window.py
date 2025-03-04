@@ -6,8 +6,8 @@ def tkWindow(title, size):
     window.geometry(size)
     return window
 
-def tkLabel(root, text, font):
-    label = tk.Label(root, text=text, font=font)
+def tkLabel(root, text, font, bg):
+    label = tk.Label(root, text=text, font=font, bg=bg)
     label.pack()
     return label
 
